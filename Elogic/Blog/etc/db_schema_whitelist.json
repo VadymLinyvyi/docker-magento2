@@ -1,0 +1,35 @@
+{
+    "elogic_blog_articles": {
+        "column": {
+            "entity_id": true,
+            "author": true,
+            "title": true,
+            "desc": true,
+            "content": true,
+            "status": true,
+            "enabled": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "elogic_article_comments": {
+        "column": {
+            "entity_id": true,
+            "article": true,
+            "author": true,
+            "content": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        },
+        "constraint": {
+            "FOREIGN": true
+        }
+    }
+}

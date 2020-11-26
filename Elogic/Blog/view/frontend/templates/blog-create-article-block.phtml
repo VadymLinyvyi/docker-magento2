@@ -1,0 +1,37 @@
+<?php /** @var \Elogic\Blog\Block\Blog $block */ ?>
+
+<h1>Blog page</h1>
+<form data-mage-init='{"validation": {}}' class="form new_article" action="<?php /* @escapeNotVerified */ echo $block->getFormAction(); ?>"
+      id="new-article-form" method="post" autocomplete="off" data-hasrequired="* Required Fields">
+    <fieldset class="fieldset">
+        <legend class="legend"><span><?= __('New blog article') ?></span></legend><br>
+        <div class="field required">
+            <label for="author-name" class="label"><span><?= __('Enter your name') ?></span></label>
+            <div class="control">
+                <input data-validate='{"required":true}' id="author-name" name="author" type="text">
+            </div>
+        </div>
+        <div class="field required">
+            <label for="title" class="label"><span><?= __('Enter the article title') ?></span></label>
+            <div class="control">
+                <input data-validate='{"required":true}' id="title" name="title" type="text">
+            </div>
+        </div>
+        <div class="field required">
+            <label for="description" class="label"><span><?= __('Enter the article description') ?></span></label>
+            <div class="control">
+                <input data-validate='{"required":true}' id="description" name="description" type="text">
+            </div>
+        </div>
+        <div class="field required">
+            <label for="content" class="label"><span><?= __('Enter the article content') ?></span></label>
+            <div class="control">
+                <input data-validate='{"required":true}' id="content" name="content" type="text">
+            </div>
+        </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <input type="submit" class="action submit primary" value="<?= __('Post new article') ?>">
+    </div>
+</form>

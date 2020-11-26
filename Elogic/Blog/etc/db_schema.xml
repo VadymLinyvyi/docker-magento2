@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="elogic_blog_articles" resource="default" engine="innodb" comment="eLogic blog article table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="author" nullable="false" length="64" comment="Article author"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="250" comment="Article title"/>
+        <column xsi:type="varchar" name="desc" nullable="false" length="1024" comment="Article description"/>
+        <column xsi:type="text" name="content" nullable="true" comment="Article content"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false" default="0" comment="Article status"/>
+        <column xsi:type="boolean" name="enabled" unsigned="true" nullable="false"
+                identity="false" default="0" comment="IS_enabled"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="elogic_article_comments" resource="default" engine="innodb" comment="eLogic blog comments table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="article" unsigned="true" nullable="false" comment="Related article ID"/>
+        <column xsi:type="varchar" name="author" nullable="false" length="64" comment="Comment author"/>
+        <column xsi:type="text" name="content" nullable="true" comment="Comment content"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false" default="0" comment="Article status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" table="elogic_article_comments" column="article" referenceTable="elogic_blog_articles"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+</schema>
