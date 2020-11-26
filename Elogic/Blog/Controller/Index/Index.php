@@ -2,11 +2,10 @@
 
 namespace Elogic\Blog\Controller\Index;
 
-//use Magento\Framework\App\Action\Context;
+
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
-//use Magento\Framework\View\Result\Page;
-//use Magento\Framework\View\Result\PageFactory;
+
 
 class Index extends \Magento\Framework\App\Action\Action
 {
