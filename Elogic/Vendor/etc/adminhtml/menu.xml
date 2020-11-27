@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Elogic_Vendor::vendors" title="Vendors" module="Elogic_Vendor" sortOrder="100" resource="Elogic_Vendor::vendor" />
+        <add id="Elogic_Vendor::manage_vendors" title="Manage Vendors List" module="Elogic_Vendor" sortOrder="10"
+             parent="Elogic_Vendor::vendors" action="vendors/vendorslist/index" resource="Elogic_Vendor::vendors_list" />
+    </menu>
+</config>
