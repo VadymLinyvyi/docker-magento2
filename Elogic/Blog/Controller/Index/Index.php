@@ -10,7 +10,6 @@ use Magento\Framework\Controller\ResultFactory;
 class Index extends \Magento\Framework\App\Action\Action
 {
     /**
-     * Booking action
      *
      * @return string
      */

@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="elogic_vendor_listing"/>
+<!--            <block class="Elogic\Vendor\Block\Adminhtml\Vendor\Edit" name="vendor_edit"/>-->
+            <uiComponent name="elogic_vendor_edit"/>
         </referenceContainer>
     </body>
 </page>

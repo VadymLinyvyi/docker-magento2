@@ -1,19 +1,23 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
     <!-- Integration -->
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <!-- define a provider -->
-            <item name="provider" xsi:type="string">vendors_listing.vendors_listing_data_source</item>
+            <item name="provider" xsi:type="string">elogic_vendor_listing.elogic_vendor_listing_data_source</item>
+            <item name="deps" xsi:type="string">elogic_vendor_listing.elogic_vendor_listing_data_source</item>
         </item>
+
         <!-- define column type -->
-        <item name="spinner" xsi:type="string">vendors_columns</item>
+        <item name="spinner" xsi:type="string">spinner_columns</item>
+
         <!-- Button to add new item -->
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
                 <item name="name" xsi:type="string">add</item>
-                <item name="label" xsi:type="string" translate="true">Add New Vendor</item>
+                <item name="label" xsi:type="string" translate="true">Add Vendor</item>
                 <item name="class" xsi:type="string">primary</item>
-                <item name="url" xsi:type="string">*/*/new</item> <!-- magento will translate it by jobs/department/new -->
+                <item name="url" xsi:type="string">*/*/newaction</item>
             </item>
         </item>
     </argument>
@@ -22,10 +26,9 @@
     <dataSource name="vendors_listing_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">VendorGridDataProvider</argument> <!-- Data provider class -->
-            <argument name="name" xsi:type="string">vendors_listing_data_source</argument> <!-- provider defined above -->
+            <argument name="name" xsi:type="string">elogic_vendor_listing_data_source</argument> <!-- provider defined above -->
             <argument name="primaryFieldName" xsi:type="string">entity_id</argument> <!-- Primary key -->
-            <argument name="requestFieldName" xsi:type="string">id</argument> <!-- URL name parameter -->
-
+            <argument name="requestFieldName" xsi:type="string">entity_id</argument> <!-- URL name parameter -->
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
@@ -40,43 +43,54 @@
     </dataSource>
 
     <!-- Container Listing Top -->
-    <container name="listing_top">
+    <listingToolbar name="listing_top">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
-                <item name="template" xsi:type="string">ui/grid/toolbar</item>
+                <item name="sticky" xsi:type="boolean">true</item>
             </item>
         </argument>
-        <!-- Button to manage views -->
-        <bookmark name="bookmarks">
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+<!--        <filterSearch name="fulltext"/>-->
+        <filters name="listing_filters" />
+        <massaction name="listing_massaction">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/bookmarks/bookmarks</item>
-                    <item name="displayArea" xsi:type="string">dataGridActions</item>
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="saveUrl" xsi:type="url" path="mui/bookmark/save"/>
-                        <item name="deleteUrl" xsi:type="url" path="mui/bookmark/delete"/>
-                        <item name="namespace" xsi:type="string">vendors_listing</item>
-                    </item>
+                    <item name="selectProvider" xsi:type="string">elogic_vendor_listing.elogic_vendor_listing.spinner_columns.ids</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+<!--                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>-->
                 </item>
             </argument>
-        </bookmark>
-        <!-- Button to manage columns -->
-        <container name="columns_controls">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="columnsData" xsi:type="array">
-                        <item name="provider" xsi:type="string">vendors_listing.vendors_listing.vendors_columns</item>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete Vendors</item>
+                        <item name="url" xsi:type="url" path="vendors/vendorslist/massdelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete Vendors</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to delete selected items?</item>
+                        </item>
                     </item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
-                    <item name="displayArea" xsi:type="string">dataGridActions</item>
-                </item>
-            </argument>
-        </container>
-    </container>
+                </argument>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+
 
     <!-- Columns -->
-    <columns name="vendors_columns">
-        <!-- ID Column -->
+    <columns name="spinner_columns">
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
         <column name="entity_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -86,7 +100,6 @@
                 </item>
             </argument>
         </column>
-        <!--Name Column-->
         <column name="vendor_name">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -97,11 +110,24 @@
                             <item name="required-entry" xsi:type="boolean">true</item>
                         </item>
                     </item>
-                    <item name="label" xsi:type="string" translate="false">Vendor</item>
+                    <item name="label" xsi:type="string" translate="true">Vendor</item>
                 </item>
             </argument>
         </column>
-
+        <column name="desc">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Description</item>
+                </item>
+            </argument>
+        </column>
         <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -122,5 +148,16 @@
                 </item>
             </argument>
         </column>
+
+        <!-- Action columns -->
+        <actionsColumn name="actions" class="Elogic\Vendor\Ui\Component\Listing\Column\VendorAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </actionsColumn>
     </columns>
 </listing>

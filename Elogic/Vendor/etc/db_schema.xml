@@ -19,5 +19,14 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>
+        <index referenceId="ELOGIC_VENDOR_LIST_VENDOR_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+        <index referenceId="ELOGIC_VENDOR_LIST_VENDOR_NAME" indexType="btree">
+            <column name="vendor_name"/>
+        </index>
+        <index referenceId="ELOGIC_VENDOR_LIST_VENDOR_DESC" indexType="btree">
+            <column name="desc"/>
+        </index>
     </table>
 </schema>

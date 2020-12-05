@@ -5,6 +5,10 @@ use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Backend\App\Action;
 
+/**
+ * Class Index
+ * @package Elogic\Vendor\Controller\Adminhtml\VendorsList
+ */
 class Index extends Action
 {
     const ADMIN_RESOURCE = 'Elogic_Vendor::manage_vendors';

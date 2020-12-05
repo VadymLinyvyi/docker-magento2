@@ -10,6 +10,11 @@
         },
         "constraint": {
             "PRIMARY": true
+        },
+        "index": {
+            "ELOGIC_VENDOR_LIST_VENDOR_ID": true,
+            "ELOGIC_VENDOR_LIST_VENDOR_NAME": true,
+            "ELOGIC_VENDOR_LIST_VENDOR_DESC": true
         }
     }
 }
