@@ -1,5 +1,4 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-
     <!-- Integration -->
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
@@ -7,10 +6,8 @@
             <item name="provider" xsi:type="string">elogic_vendor_listing.elogic_vendor_listing_data_source</item>
             <item name="deps" xsi:type="string">elogic_vendor_listing.elogic_vendor_listing_data_source</item>
         </item>
-
         <!-- define column type -->
         <item name="spinner" xsi:type="string">spinner_columns</item>
-
         <!-- Button to add new item -->
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
@@ -21,7 +18,6 @@
             </item>
         </item>
     </argument>
-
     <!-- Data source -->
     <dataSource name="vendors_listing_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
@@ -41,7 +37,6 @@
             </argument>
         </argument>
     </dataSource>
-
     <!-- Container Listing Top -->
     <listingToolbar name="listing_top">
         <argument name="data" xsi:type="array">
@@ -77,9 +72,6 @@
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
-
-
-
     <!-- Columns -->
     <columns name="spinner_columns">
         <selectionsColumn name="ids">
@@ -97,6 +89,19 @@
                     <item name="filter" xsi:type="string">textRange</item>
                     <item name="sorting" xsi:type="string">asc</item>
                     <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="logo" class="Elogic\Vendor\Ui\Component\Listing\Column\Thumbnail">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="altField" xsi:type="string">vendor_name</item>
+                    <item name="resizeEnabled" xsi:type="boolean">true</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">200</item>
+                    <item name="has_preview" xsi:type="string">1</item>
+                    <item name="label" xsi:type="string" translate="true">Logo</item>
                 </item>
             </argument>
         </column>
