@@ -8,6 +8,7 @@ use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use RuntimeException;
 
 /**
@@ -53,7 +54,7 @@ class Save extends Action
      * Save action
      *
      * @return ResultInterface
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws NoSuchEntityException
      */
     public function execute()
     {
@@ -61,9 +62,14 @@ class Save extends Action
         /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($data) {
-            (int) $id = $this->getRequest()->getParam('id');
+            (int) $id = $data['entity_id'];
             if ($id) {
                 $vendor = $this->vendorRepository->getById($id);
+                $vendor->setName($data['vendor_name']);
+                $vendor->setDescription($data['desc']);
+                if (isset($data['logo'])) {
+                    $vendor->setImageUrl($data['logo'][0]['name']);
+                }
             } else {
                 unset($data['entity_id']);
                 $vendor = $this->vendor->createEntity($data);
@@ -79,7 +85,10 @@ class Save extends Action
                 $this->messageManager->addSuccessMessage(__('Vendor saved'));
                 $this->_getSession()->setFormData(false);
                 if ($this->getRequest()->getParam('back')) {
-                    return $resultRedirect->setPath('*/*/edit', ['entity_id' => $vendor->getEntityId(), '_current' => true]);
+                    return $resultRedirect->setPath(
+                        '*/*/edit',
+                        ['entity_id' => $vendor->getEntityId(), '_current' => true]
+                    );
                 }
                 return $resultRedirect->setPath('*/*/');
             } catch (LocalizedException $e) {

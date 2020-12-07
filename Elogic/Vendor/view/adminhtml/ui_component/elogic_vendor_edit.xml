@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <!-- Integration -->
     <argument name="data" xsi:type="array">
@@ -45,7 +46,7 @@
     </dataSource>
 
     <!-- Fields -->
-    <fieldset name="elogic_vendor_list">
+    <fieldset name="vendor_details">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
                 <item name="collapsible" xsi:type="boolean">false</item>
@@ -58,8 +59,9 @@
                 <item name="config" xsi:type="array">
                     <item name="visible" xsi:type="boolean">false</item>
                     <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Vendor Id</item>
                     <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">entity_id</item>
+                    <item name="source" xsi:type="string">vendor</item>
                     <item name="dataScope" xsi:type="string">entity_id</item>
                 </item>
             </argument>
@@ -71,7 +73,7 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">Vendor Name</item>
                     <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">vendor_name</item>
+                    <item name="source" xsi:type="string">vendor</item>
                     <item name="dataScope" xsi:type="string">vendor_name</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entity" xsi:type="boolean">true</item>
@@ -85,7 +87,7 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">Vendor Description</item>
                     <item name="formElement" xsi:type="string">textarea</item>
-                    <item name="source" xsi:type="string">desc</item>
+                    <item name="source" xsi:type="string">vendor</item>
                     <item name="dataScope" xsi:type="string">desc</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entity" xsi:type="boolean">true</item>
@@ -93,30 +95,29 @@
                 </item>
             </argument>
         </field>
-        <field name="logo" formElement="imageUploader">
+        <field name="logo" sortOrder="30" formElement="imageUploader">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">logo</item>
+                    <item name="source" xsi:type="string">vendor</item>
                 </item>
             </argument>
             <settings>
                 <elementTmpl>ui/form/element/uploader/image</elementTmpl>
                 <dataType>string</dataType>
-                <label translate="true">Vendor Logo</label>
+                <label translate="true">Vendor Logotype</label>
                 <visible>true</visible>
                 <required>false</required>
-                <componentType>imageUploader</componentType>
             </settings>
             <formElements>
                 <imageUploader>
                     <settings>
                         <required>false</required>
                         <uploaderConfig>
-                            <param xsi:type="url" name="url" path="vendors/vendor_logo/upload"/>
+                            <param xsi:type="url" name="url" path="vendors/vendorslist/uploader"/>
                         </uploaderConfig>
-                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <previewTmpl>Elogic_Vendor/image-preview</previewTmpl>
                         <openDialogTitle>Media Gallery</openDialogTitle>
-                        <initialMediaGalleryOpenSubpath>elogic/image</initialMediaGalleryOpenSubpath>
+                        <initialMediaGalleryOpenSubpath>logo/image</initialMediaGalleryOpenSubpath>
                         <allowedExtensions>jpg jpeg gif png</allowedExtensions>
                         <maxFileSize>4194304</maxFileSize>
                     </settings>

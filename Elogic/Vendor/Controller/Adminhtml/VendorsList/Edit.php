@@ -9,7 +9,6 @@ use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
 use Elogic\Vendor\Api\Data\VendorInterface;
 use Elogic\Vendor\Api\VendorRepositoryInterface;
-use \Elogic\Vendor\Model\DataProviderFactory;
 
 /**
  * Class Edit
@@ -40,32 +39,17 @@ class Edit extends Action
      */
     private $vendorRepository;
 
-    /**
-     * @var DataProviderFactory
-     */
-    private $dataProvider;
-
-    /**
-     * @param Action\Context $context
-     * @param PageFactory $resultPageFactory
-     * @param Registry $registry
-     * @param VendorInterface $vendor
-     * @param VendorRepositoryInterface $vendorRepository
-     * @param DataProviderFactory $dataProvider
-     */
     public function __construct(
         Action\Context $context,
         PageFactory $resultPageFactory,
         Registry $registry,
         VendorInterface $vendor,
-        VendorRepositoryInterface $vendorRepository,
-        DataProviderFactory $dataProvider
+        VendorRepositoryInterface $vendorRepository
     ) {
         $this->_resultPageFactory = $resultPageFactory;
         $this->_coreRegistry = $registry;
         $this->vendor = $vendor;
         $this->vendorRepository = $vendorRepository;
-        $this->dataProvider;
         parent::__construct($context);
     }
 

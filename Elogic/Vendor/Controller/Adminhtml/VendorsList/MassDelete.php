@@ -2,7 +2,7 @@
 
 namespace Elogic\Vendor\Controller\Adminhtml\VendorsList;
 
-use Elogic\Vendor\Api\VendorRepositoryInterfaceFactory;
+use Elogic\Vendor\Api\VendorRepositoryInterface;
 use Exception;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\ResponseInterface;
@@ -31,7 +31,7 @@ class MassDelete extends \Magento\Backend\App\Action
     protected $collectionFactory;
 
     /**
-     * @var VendorRepositoryInterfaceFactory
+     * @var VendorRepositoryInterface
      */
     protected $vendorRepository;
 
@@ -40,13 +40,13 @@ class MassDelete extends \Magento\Backend\App\Action
      * @param Context $context
      * @param Filter $filter
      * @param CollectionFactory $collectionFactory
-     * @param VendorRepositoryInterfaceFactory $vendorRepository
+     * @param VendorRepositoryInterface $vendorRepository
      */
     public function __construct(
         Context $context,
         Filter $filter,
         CollectionFactory $collectionFactory,
-        VendorRepositoryInterfaceFactory $vendorRepository
+        VendorRepositoryInterface $vendorRepository
     ) {
         $this->filter = $filter;
         $this->vendorRepository = $vendorRepository;
@@ -69,7 +69,7 @@ class MassDelete extends \Magento\Backend\App\Action
 //                $model = $this->model;
 //                $model->load($item->getId());
 //                $model->delete();
-                $vendor = $this->vendorRepository->getById($item->getId());
+                $vendor = $this->vendorRepository->getById($item->getData('entity_id'));
                 $this->vendorRepository->delete($vendor);
             }
         } catch (Exception $e) {

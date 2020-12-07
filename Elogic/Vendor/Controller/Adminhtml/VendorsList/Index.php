@@ -2,6 +2,7 @@
 namespace Elogic\Vendor\Controller\Adminhtml\VendorsList;
 
 use Magento\Backend\App\Action\Context;
+use Magento\Backend\Model\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Backend\App\Action;
 
@@ -33,11 +34,11 @@ class Index extends Action
     /**
      * Index action
      *
-     * @return \Magento\Backend\Model\View\Result\Page
+     * @return Page
      */
     public function execute()
     {
-        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
+        /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Elogic_Vendor::manage_vendors');
         $resultPage->addBreadcrumb(__('Vendors'), __('Vendors'));

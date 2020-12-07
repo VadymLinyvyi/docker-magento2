@@ -5,7 +5,7 @@ use Exception;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\Controller\ResultInterface;
-use Elogic\Vendor\Api\VendorRepositoryInterfaceFactory;
+use Elogic\Vendor\Api\VendorRepositoryInterface;
 
 /**
  * Class Delete
@@ -14,17 +14,17 @@ use Elogic\Vendor\Api\VendorRepositoryInterfaceFactory;
 class Delete extends Action
 {
     /**
-     * @var VendorRepositoryInterfaceFactory
+     * @var VendorRepositoryInterface
      */
     private $vendorRepository;
 
     /**
      * Delete constructor.
-     * @param VendorRepositoryInterfaceFactory $vendorRepository
+     * @param VendorRepositoryInterface $vendorRepository
      * @param Action\Context $context
      */
     public function __construct(
-        VendorRepositoryInterfaceFactory $vendorRepository,
+        VendorRepositoryInterface $vendorRepository,
         Action\Context $context
     ) {
         parent::__construct($context);
