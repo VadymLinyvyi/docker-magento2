@@ -3,7 +3,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
-            <block class="Elogic\Blog\Block\BlogArticles" name="blog-view-article-block" template="Elogic_Blog::blog-view-article-block.phtml"/>
+            <block class="Elogic\Blog\Block\Article\Create" name="blog-create-article-block" template="Elogic_Blog::blog-create-article-block.phtml"/>
         </referenceContainer>
     </body>
 </page>

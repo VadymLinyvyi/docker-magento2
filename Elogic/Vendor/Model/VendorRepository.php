@@ -5,6 +5,7 @@ namespace Elogic\Vendor\Model;
 
 
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Exception\AlreadyExistsException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Api\SortOrder;
 use Elogic\Vendor\Api\Data\VendorInterface;
@@ -70,6 +71,7 @@ class VendorRepository implements VendorRepositoryInterface
     /**
      * @param VendorInterface $vendor
      * @return VendorInterface
+     * @throws AlreadyExistsException
      */
     public function save(VendorInterface $vendor)
     {

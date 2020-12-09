@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
+
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
-            <block class="Elogic\Blog\Block\ArticleListing" name="blog-view-article-listing" template="Elogic_Blog::blog-view-article-listing.phtml"/>
+            <block class="Elogic\Blog\Block\Article\View" name="blog-view-article-block" template="Elogic_Blog::blog-view-article-block.phtml"/>
         </referenceContainer>
     </body>
 </page>

@@ -6,6 +6,7 @@
             "title": true,
             "desc": true,
             "content": true,
+            "url": true,
             "status": true,
             "enabled": true,
             "created_at": true,

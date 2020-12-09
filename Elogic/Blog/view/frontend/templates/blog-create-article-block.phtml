@@ -1,4 +1,4 @@
-<?php /** @var \Elogic\Blog\Block\Blog $block */ ?>
+<?php /** @var \Elogic\Blog\Block\Article\Create $block */ ?>
 
 <h1>Blog page</h1>
 <form data-mage-init='{"validation": {}}' class="form new_article" action="<?php /* @escapeNotVerified */ echo $block->getFormAction(); ?>"
@@ -26,9 +26,8 @@
         <div class="field required">
             <label for="content" class="label"><span><?= __('Enter the article content') ?></span></label>
             <div class="control">
-                <input data-validate='{"required":true}' id="content" name="content" type="text">
+                <textarea data-validate='{"required":true}' id="content" name="content" cols="5" rows="3"></textarea>
             </div>
-        </div>
         </div>
     </fieldset>
     <div class="actions-toolbar">

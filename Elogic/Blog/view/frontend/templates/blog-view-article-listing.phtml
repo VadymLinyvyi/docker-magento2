@@ -1,0 +1,13 @@
+<?php
+/** @var ArticleListing $block */
+
+use Elogic\Blog\Block\ArticleListing;
+
+$items = $block->getItems();
+?>
+<a href="/blog/article/newarticle">Add new article</a>
+<div class="articleList">
+    <?php foreach ($items as $item) : ?>
+        <p><a href="/blog/<?= $item['url']?>"><?= $item['title'] ?></a></p>
+    <?php endforeach; ?>
+</div>

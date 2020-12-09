@@ -2,114 +2,126 @@
 
 namespace Elogic\Blog\Controller;
 
+use Magento\Cms\Model\Page;
+use Magento\Cms\Model\PageFactory;
+use Magento\Framework\App\Action\Forward;
+use Magento\Framework\App\Action\Redirect;
+use Magento\Framework\App\ActionFactory;
+use Magento\Framework\App\ActionInterface;
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\App\RouterInterface;
+use Magento\Framework\App\State;
+use Magento\Framework\DataObject;
+use Magento\Framework\Event\ManagerInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\UrlInterface;
+use Magento\Store\Model\StoreManagerInterface;
+use Elogic\Blog\Model\ResourceModel\Blog\CollectionFactory;
+
 /**
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * Class Router
+ * @package Elogic\Blog\Controller
  */
-class Router implements \Magento\Framework\App\RouterInterface
+class Router implements RouterInterface
 {
     /**
-     * @var \Magento\Framework\App\ActionFactory
+     * @var ActionFactory
      */
     protected $actionFactory;
 
     /**
      * Event manager
      *
-     * @var \Magento\Framework\Event\ManagerInterface
+     * @var ManagerInterface
      */
-    protected $_eventManager;
+    protected $eventManager;
 
     /**
      * Store manager
      *
-     * @var \Magento\Store\Model\StoreManagerInterface
+     * @var StoreManagerInterface
      */
-    protected $_storeManager;
+    protected $storeManager;
 
     /**
      * Page factory
      *
-     * @var \Magento\Cms\Model\PageFactory
+     * @var PageFactory
      */
-    protected $_pageFactory;
+    protected $pageFactory;
 
     /**
      * Config primary
      *
-     * @var \Magento\Framework\App\State
+     * @var State
      */
-    protected $_appState;
+    protected $appState;
 
     /**
      * Url
      *
-     * @var \Magento\Framework\UrlInterface
+     * @var UrlInterface
      */
-    protected $_url;
+    protected $url;
 
     /**
      * Response
      *
-     * @var \Magento\Framework\App\ResponseInterface
+     * @var ResponseInterface
      */
-    protected $_response;
+    protected $response;
+    /**
+     * @var CollectionFactory
+     */
+    private $collection;
 
     /**
-     * @param \Magento\Framework\App\ActionFactory $actionFactory
-     * @param \Magento\Framework\Event\ManagerInterface $eventManager
-     * @param \Magento\Framework\UrlInterface $url
-     * @param \Magento\Cms\Model\PageFactory $pageFactory
-     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Framework\App\ResponseInterface $response
+     * @param ActionFactory $actionFactory
+     * @param ManagerInterface $eventManager
+     * @param UrlInterface $url
+     * @param PageFactory $pageFactory
+     * @param StoreManagerInterface $storeManager
+     * @param ResponseInterface $response
+     * @param CollectionFactory $collection
      */
     public function __construct(
-        \Magento\Framework\App\ActionFactory $actionFactory,
-        \Magento\Framework\Event\ManagerInterface $eventManager,
-        \Magento\Framework\UrlInterface $url,
-        \Magento\Cms\Model\PageFactory $pageFactory,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Framework\App\ResponseInterface $response
+        ActionFactory $actionFactory,
+        ManagerInterface $eventManager,
+        UrlInterface $url,
+        PageFactory $pageFactory,
+        StoreManagerInterface $storeManager,
+        ResponseInterface $response,
+        CollectionFactory $collection
     ) {
         $this->actionFactory = $actionFactory;
-        $this->_eventManager = $eventManager;
-        $this->_url = $url;
-        $this->_pageFactory = $pageFactory;
-        $this->_storeManager = $storeManager;
-        $this->_response = $response;
+        $this->eventManager = $eventManager;
+        $this->url = $url;
+        $this->pageFactory = $pageFactory;
+        $this->storeManager = $storeManager;
+        $this->response = $response;
+        $this->collection = $collection->create();
     }
 
-
-    public function match(\Magento\Framework\App\RequestInterface $request)
+    /**
+     * @param RequestInterface $request
+     * @return ActionInterface|null
+     * @throws NoSuchEntityException
+     */
+    public function match(RequestInterface $request)
     {
+        $articles = $this->collection->getItems();
         $identifier = trim($request->getPathInfo(), '/');
         $parts = explode('/', $identifier);
-
-        if ($parts[0] != 'blog')
-        $this->_eventManager->dispatch(
-            'cms_controller_router_match_before',
-            ['router' => $this, 'condition' => $condition]
-        );
-        $identifier = $condition->getIdentifier();
-
-        if ($condition->getRedirectUrl()) {
-            $this->_response->setRedirect($condition->getRedirectUrl());
-            $request->setDispatched(true);
-            return $this->actionFactory->create(\Magento\Framework\App\Action\Redirect::class);
+        foreach ($articles as $article) {
+            if ($article['url'] == $parts[1]) {
+                $request->setModuleName('blog')
+                    ->setControllerName('article')
+                    ->setActionName('view')
+                    ->setParam('id', $article['entity_id']);
+                return $this->actionFactory->create(Forward::class);
+            }
         }
-
-        if (!$condition->getContinue()) {
-            return null;
-        }
-
-        /** @var \Magento\Cms\Model\Page $page */
-        $page = $this->_pageFactory->create();
-        $pageId = $page->checkIdentifier($identifier, $this->_storeManager->getStore()->getId());
-        if (!$pageId) {
-            return null;
-        }
-
-        $request->setModuleName('blog')->setControllerName('page')->setActionName('view')->setParam('page_id', $pageId);
-
-        return $this->actionFactory->create(\Magento\Framework\App\Action\Forward::class);
+        return null;
     }
 }

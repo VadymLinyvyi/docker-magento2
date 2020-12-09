@@ -13,6 +13,7 @@
         <column xsi:type="varchar" name="title" nullable="false" length="250" comment="Article title"/>
         <column xsi:type="varchar" name="desc" nullable="false" length="1024" comment="Article description"/>
         <column xsi:type="text" name="content" nullable="true" comment="Article content"/>
+        <column xsi:type="varchar" name="url" nullable="false" length="255" comment="Article URL"/>
         <column xsi:type="smallint" name="status" unsigned="true" nullable="false" default="0" comment="Article status"/>
         <column xsi:type="boolean" name="enabled" unsigned="true" nullable="false"
                 identity="false" default="0" comment="IS_enabled"/>

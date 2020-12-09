@@ -1,11 +1,11 @@
 <?php
-namespace Elogic\Blog\Controller\Index;
+namespace Elogic\Blog\Controller\Article;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 
-class Index extends Action
+class View extends Action
 {
     /**
      * @var PageFactory $resultPageFactory
