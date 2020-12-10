@@ -1,8 +1,5 @@
 <?php
-
-
 namespace Elogic\Vendor\Model;
-
 
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\AlreadyExistsException;
@@ -145,11 +142,9 @@ class VendorRepository implements VendorRepositoryInterface
     private function buildSearchResult(SearchCriteriaInterface $searchCriteria, Collection $collection)
     {
         $searchResults = $this->searchResultFactory->create();
-
         $searchResults->setSearchCriteria($searchCriteria);
         $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
-
         return $searchResults;
     }
 }

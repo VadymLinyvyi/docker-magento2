@@ -2,7 +2,6 @@
 namespace Elogic\Vendor\Ui\Component\Listing\Column;
 
 use Magento\Catalog\Helper\Image;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
@@ -60,7 +59,7 @@ class Thumbnail extends Column
                     $firstName = substr($imageName, 0, 1);
                     $secondName = substr($imageName, 1, 1);
                     $url = $this->storeManager->getStore()->getBaseUrl(
-                        \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
+                        UrlInterface::URL_TYPE_MEDIA
                     ).'logo/image/'.$firstName.'/'.$secondName.'/'.$imageName;
                 }
                 $item[$fieldName . '_src'] = $url;

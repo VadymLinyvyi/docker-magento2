@@ -2,19 +2,15 @@
 
 namespace Elogic\Blog\Controller;
 
-use Magento\Cms\Model\Page;
 use Magento\Cms\Model\PageFactory;
 use Magento\Framework\App\Action\Forward;
-use Magento\Framework\App\Action\Redirect;
 use Magento\Framework\App\ActionFactory;
 use Magento\Framework\App\ActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\App\RouterInterface;
 use Magento\Framework\App\State;
-use Magento\Framework\DataObject;
 use Magento\Framework\Event\ManagerInterface;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\UrlInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Elogic\Blog\Model\ResourceModel\Blog\CollectionFactory;
@@ -106,7 +102,6 @@ class Router implements RouterInterface
     /**
      * @param RequestInterface $request
      * @return ActionInterface|null
-     * @throws NoSuchEntityException
      */
     public function match(RequestInterface $request)
     {
