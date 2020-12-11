@@ -54,7 +54,39 @@ class Vendor extends Template
      */
     public function getLogo()
     {
-        return $this->getProduct()->getResource()->getAttribute('product_vendor')
-            ->getFrontend()->getLogo($this->getProduct());
+        return $this
+            ->getProduct()
+            ->getResource()
+            ->getAttribute('product_vendor')
+            ->getFrontend()
+            ->getLogo($this->getProduct());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttrLabel()
+    {
+        return $this->getProduct()->getResource()->getAttribute('product_vendor')->getStoreLabel();
+    }
+
+    public function getName()
+    {
+        return $this
+            ->getProduct()
+            ->getResource()
+            ->getAttribute('product_vendor')
+            ->getFrontend()
+            ->getName($this->getProduct());
+    }
+
+    public function getDescription()
+    {
+        return $this
+            ->getProduct()
+            ->getResource()
+            ->getAttribute('product_vendor')
+            ->getFrontend()
+            ->getDescription($this->getProduct());
     }
 }

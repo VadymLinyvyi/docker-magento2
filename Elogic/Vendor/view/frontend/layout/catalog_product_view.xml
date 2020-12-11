@@ -2,8 +2,8 @@
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="product.info.price">
-            <container name="product.info.vendor.logo" label="Vendor logotype" htmlTag="div" htmlClass="product-info-vendor-logo" after="product.info.stock.sku">
-                <block class="Elogic\Vendor\Block\Attribute\Vendor" name="vendor.logo.view" template="Elogic_Vendor::vendor_logo_view.phtml"/>
+            <container name="product.info.vendor.logo" label="Vendor logotype" htmlTag="div" htmlClass="product-info-vendor-logo" after="-">
+                <block class="Elogic\Vendor\Block\Attribute\Vendor" name="vendor.logo.view" template="Elogic_Vendor::vendor_product_view.phtml"/>
             </container>
         </referenceContainer>
     </body>

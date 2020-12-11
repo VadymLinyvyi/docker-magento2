@@ -1,0 +1,5 @@
+<?php /** @var \Elogic\Vendor\Block\Attribute\Vendor $block */ ?>
+<?php if ($block->getLogo()) : ?>
+<span class="attribute label"><?= $block->getAttrLabel() ?></span>
+<img class='logo' src="<?= $block->getLogo()['url'] ?>" width="50" height="50" alt="<?= $block->getLogo()['alt'] ?>">
+<?php endif; ?>
