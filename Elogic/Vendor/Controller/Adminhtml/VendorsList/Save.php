@@ -61,6 +61,7 @@ class Save extends Action
         $data = $this->getRequest()->getPostValue();
         /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
+        $result = $resultRedirect->setPath('*/*/');
         if ($data) {
             (int) $id = $data['entity_id'];
             if ($id) {
@@ -79,26 +80,25 @@ class Save extends Action
                 'elogic_vendor_list_prepare_save',
                 ['vendor' => $vendor, 'request' => $this->getRequest()]
             );
+            $result = $resultRedirect->setPath('*/*/edit', ['entity_id' => $this->getRequest()->getParam('id')]);
             try {
                 $this->vendorRepository->save($vendor);
                 $this->messageManager->addSuccessMessage(__('Vendor saved'));
                 $this->_getSession()->setFormData(false);
+                $result = $resultRedirect->setPath('*/*/');
                 if ($this->getRequest()->getParam('back')) {
-                    return $resultRedirect->setPath(
+                    $result = $resultRedirect->setPath(
                         '*/*/edit',
                         ['entity_id' => $vendor->getEntityId(), '_current' => true]
                     );
                 }
-                return $resultRedirect->setPath('*/*/');
             } catch (LocalizedException | RuntimeException $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
             } catch (Exception $e) {
                 $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the vendor'));
             }
-
             $this->_getSession()->setFormData($data);
-            return $resultRedirect->setPath('*/*/edit', ['entity_id' => $this->getRequest()->getParam('id')]);
         }
-        return $resultRedirect->setPath('*/*/');
+        return $result;
     }
 }
