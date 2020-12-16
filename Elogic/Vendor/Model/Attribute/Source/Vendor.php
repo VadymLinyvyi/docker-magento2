@@ -32,7 +32,7 @@ class Vendor extends AbstractSource
     {
         $items = $this->collectionFactory->getItems();
         if (!$this->_options) {
-            $this->_options[] = ['label' => __(''), 'value' => null];
+            $this->_options[] = ['label' => __(' '), 'value' => null];
             foreach ($items as $item) {
                 $this->_options[] = ['label' => __($item['name']), 'value' => $item['entity_id']];
             }
