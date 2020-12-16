@@ -65,21 +65,20 @@ class Save extends Action
             (int) $id = $data['entity_id'];
             if ($id) {
                 $vendor = $this->vendorRepository->getById($id);
-                $vendor->setName($data['vendor_name']);
-                $vendor->setDescription($data['desc']);
+                $vendor->setName($data['name']);
+                $vendor->setDescription($data['description']);
                 if (isset($data['logo'])) {
                     $vendor->setImageUrl($data['logo'][0]['name']);
                 }
             } else {
+                $data['logo'] = $data['logo'][0]['name'];
                 unset($data['entity_id']);
                 $vendor = $this->vendor->createEntity($data);
             }
-
             $this->_eventManager->dispatch(
                 'elogic_vendor_list_prepare_save',
                 ['vendor' => $vendor, 'request' => $this->getRequest()]
             );
-
             try {
                 $this->vendorRepository->save($vendor);
                 $this->messageManager->addSuccessMessage(__('Vendor saved'));
@@ -91,9 +90,7 @@ class Save extends Action
                     );
                 }
                 return $resultRedirect->setPath('*/*/');
-            } catch (LocalizedException $e) {
-                $this->messageManager->addErrorMessage($e->getMessage());
-            } catch (RuntimeException $e) {
+            } catch (LocalizedException | RuntimeException $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
             } catch (Exception $e) {
                 $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the vendor'));

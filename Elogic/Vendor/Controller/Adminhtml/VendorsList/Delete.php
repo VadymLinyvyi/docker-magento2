@@ -1,11 +1,13 @@
 <?php
 namespace Elogic\Vendor\Controller\Adminhtml\VendorsList;
 
-use Exception;
+use \Exception;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Redirect;
+use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Elogic\Vendor\Api\VendorRepositoryInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
  * Class Delete
@@ -40,9 +42,8 @@ class Delete extends Action
     }
 
     /**
-     * Delete action
-     *
-     * @return ResultInterface
+     * @return Redirect|ResponseInterface|ResultInterface
+     * @throws NoSuchEntityException
      */
     public function execute()
     {
@@ -54,13 +55,13 @@ class Delete extends Action
                 $vendor = $this->vendorRepository->getById($id);
                 $this->vendorRepository->delete($vendor);
                 $this->messageManager->addSuccessMessage(__('Vendor deleted'));
-                return $resultRedirect->setPath('*/*/');
             } catch (Exception $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
                 return $resultRedirect->setPath('*/*/edit', ['id' => $id]);
             }
+        } else {
+            $this->messageManager->addErrorMessage(__('Vendor does not exist'));
         }
-        $this->messageManager->addErrorMessage(__('Vendor does not exist'));
         return $resultRedirect->setPath('*/*/');
     }
 }

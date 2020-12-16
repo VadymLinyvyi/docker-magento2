@@ -1,7 +1,8 @@
 <?php
 namespace Elogic\Vendor\Model\ResourceModel\Vendor;
 
-use Elogic\Vendor\Model\Vendor;
+use Elogic\Vendor\Model\ResourceModel\Vendor;
+use Elogic\Vendor\Model\Vendor as VendorModel;
 use \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 /**
@@ -19,6 +20,9 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_init('Elogic\Vendor\Model\Vendor', 'Elogic\Vendor\Model\ResourceModel\Vendor');
+        $this->_init(
+            VendorModel::class,
+            Vendor::class
+        );
     }
 }

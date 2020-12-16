@@ -10,8 +10,8 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 interface VendorInterface extends ExtensibleDataInterface
 {
     const VENDOR_ID = 'entity_id';              // define the id field name
-    const NAME = 'vendor_name';                 // define the name field name
-    const DESCRIPTION = 'desc';                 // define the description field name
+    const NAME = 'name';                        // define the name field name
+    const DESCRIPTION = 'description';          // define the description field name
     const IMAGE_URL = 'logo';                   // define the logotype field name
 
     /**

@@ -2,8 +2,8 @@
     "elogic_vendor_list": {
         "column": {
             "entity_id": true,
-            "vendor_name": true,
-            "desc": true,
+            "name": true,
+            "description": true,
             "logo": true,
             "created_at": true,
             "updated_at": true
@@ -12,9 +12,7 @@
             "PRIMARY": true
         },
         "index": {
-            "ELOGIC_VENDOR_LIST_VENDOR_ID": true,
-            "ELOGIC_VENDOR_LIST_VENDOR_NAME": true,
-            "ELOGIC_VENDOR_LIST_VENDOR_DESC": true
+            "ELOGIC_VENDOR_LIST_VENDOR_ID": true
         }
     }
 }

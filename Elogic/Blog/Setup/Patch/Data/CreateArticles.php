@@ -32,7 +32,6 @@ class CreateArticles implements DataPatchInterface
      * @param ModuleDataSetupInterface $moduleDataSetup
      */
 
-
     /**
      * {@inheritdoc}
      */

@@ -1,6 +1,8 @@
 <?php
 namespace Elogic\Vendor\Api;
 
+use Elogic\Vendor\Api\Data\VendorInterface;
+use Elogic\Vendor\Api\Data\VendorSearchResultInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 
@@ -12,26 +14,26 @@ interface VendorRepositoryInterface
 {
     /**
      * @param int $id
-     * @return \Elogic\Vendor\Api\Data\VendorInterface
+     * @return VendorInterface
      * @throws NoSuchEntityException
      */
     public function getById($id);
 
     /**
-     * @param \Elogic\Vendor\Api\Data\VendorInterface $vendor
-     * @return \Elogic\Vendor\Api\Data\VendorInterface
+     * @param VendorInterface $vendor
+     * @return VendorInterface
      */
-    public function save(\Elogic\Vendor\Api\Data\VendorInterface $vendor);
+    public function save(VendorInterface $vendor);
 
     /**
-     * @param \Elogic\Vendor\Api\Data\VendorInterface $vendor
+     * @param VendorInterface $vendor
      * @return void
      */
-    public function delete(\Elogic\Vendor\Api\Data\VendorInterface $vendor);
+    public function delete(VendorInterface $vendor);
 
     /**
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     * @return \Elogic\Vendor\Api\Data\VendorSearchResultInterface
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return VendorSearchResultInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria);
 }

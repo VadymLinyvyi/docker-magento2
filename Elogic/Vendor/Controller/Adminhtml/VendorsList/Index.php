@@ -12,8 +12,6 @@ use Magento\Backend\App\Action;
  */
 class Index extends Action
 {
-    const ADMIN_RESOURCE = 'Elogic_Vendor::manage_vendors';
-
     /**
      * @var PageFactory
      */
@@ -32,8 +30,6 @@ class Index extends Action
     }
 
     /**
-     * Index action
-     *
      * @return Page
      */
     public function execute()
@@ -44,7 +40,6 @@ class Index extends Action
         $resultPage->addBreadcrumb(__('Vendors'), __('Vendors'));
         $resultPage->addBreadcrumb(__('Manage Vendors List'), __('Manage Vendors List'));
         $resultPage->getConfig()->getTitle()->prepend(__('Vendors'));
-
         return $resultPage;
     }
 }

@@ -13,16 +13,16 @@ class Vendor extends AbstractSource
     /**
      * @var CollectionFactory
      */
-    private $collection;
+    private $collectionFactory;
 
     /**
      * Vendor constructor.
-     * @param CollectionFactory $collection
+     * @param CollectionFactory $collectionFactory
      */
     public function __construct(
-        CollectionFactory $collection
+        CollectionFactory $collectionFactory
     ) {
-        $this->collection = $collection->create();
+        $this->collectionFactory = $collectionFactory->create();
     }
     /**
      * Get all options
@@ -30,11 +30,11 @@ class Vendor extends AbstractSource
      */
     public function getAllOptions()
     {
-        $items = $this->collection->getItems();
+        $items = $this->collectionFactory->getItems();
         if (!$this->_options) {
-            $this->_options = [];
+            $this->_options[] = ['label' => __(''), 'value' => null];
             foreach ($items as $item) {
-                $this->_options[] = ['label' => __($item['vendor_name']), 'value' => $item['entity_id']];
+                $this->_options[] = ['label' => __($item['name']), 'value' => $item['entity_id']];
             }
         }
         return $this->_options;

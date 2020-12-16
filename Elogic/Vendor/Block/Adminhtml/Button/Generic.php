@@ -2,7 +2,6 @@
 namespace Elogic\Vendor\Block\Adminhtml\Button;
 
 use Magento\Backend\Block\Widget\Context;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Elogic\Vendor\Model\Vendor;
 
 /**
@@ -32,22 +31,6 @@ class Generic
     ) {
         $this->context = $context;
         $this->model = $model;
-    }
-
-    /**
-     * Return Author page ID
-     *
-     * @return int|null
-     */
-    public function getAuthorId()
-    {
-        try {
-            return $this->model->getById(
-                $this->context->getRequest()->getParam('author_id')
-            )->getId();
-        } catch (NoSuchEntityException $e) {
-            return null;
-        }
     }
 
     /**

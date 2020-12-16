@@ -1,7 +1,9 @@
 <?php
 namespace Elogic\Vendor\Ui\Component\Listing\Column;
 
+use Elogic\Vendor\Helper\ImageUrl;
 use Magento\Catalog\Helper\Image;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
@@ -14,6 +16,11 @@ use Magento\Ui\Component\Listing\Columns\Column;
  */
 class Thumbnail extends Column
 {
+    /**
+     * @var ImageUrl
+     */
+    protected $imageUrl;
+
     /**
      * @var StoreManagerInterface $storeManager
      */
@@ -28,7 +35,19 @@ class Thumbnail extends Column
      */
     private $urlBuilder;
 
+    /**
+     * Thumbnail constructor.
+     * @param ImageUrl $imageUrl
+     * @param ContextInterface $context
+     * @param UiComponentFactory $uiComponentFactory
+     * @param Image $imageHelper
+     * @param UrlInterface $urlBuilder
+     * @param StoreManagerInterface $storeManager
+     * @param array $components
+     * @param array $data
+     */
     public function __construct(
+        ImageUrl $imageUrl,
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
         Image $imageHelper,
@@ -41,26 +60,23 @@ class Thumbnail extends Column
         $this->urlBuilder = $urlBuilder;
         $this->storeManager = $storeManager;
         parent::__construct($context, $uiComponentFactory, $components, $data);
+        $this->imageUrl = $imageUrl;
     }
 
     /**
-     * Prepare Data Source
-     *
      * @param array $dataSource
      * @return array
+     * @throws NoSuchEntityException
      */
     public function prepareDataSource(array $dataSource)
     {
         if (isset($dataSource['data']['items'])) {
             $fieldName = $this->getData('name');
             foreach ($dataSource['data']['items'] as & $item) {
-                $url = '';
+                $url = null;
                 if ($imageName = $item[$fieldName]) {
-                    $firstName = substr($imageName, 0, 1);
-                    $secondName = substr($imageName, 1, 1);
-                    $url = $this->storeManager->getStore()->getBaseUrl(
-                        UrlInterface::URL_TYPE_MEDIA
-                    ).'logo/image/'.$firstName.'/'.$secondName.'/'.$imageName;
+                    $imageData = $this->imageUrl->getImageUrlByName($imageName);
+                    $url = $imageData['url'];
                 }
                 $item[$fieldName . '_src'] = $url;
                 $item[$fieldName . '_alt'] = $this->getAlt($item) ?: '';

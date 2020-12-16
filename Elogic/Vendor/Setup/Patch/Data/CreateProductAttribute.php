@@ -1,10 +1,11 @@
 <?php
 namespace Elogic\Vendor\Setup\Patch\Data;
 
+use Elogic\Vendor\Model\Attribute\Frontend\Vendor as VendorFrontend;
+use Elogic\Vendor\Model\Attribute\Source\Vendor as VendorSource;
 use Magento\Catalog\Model\Product;
 use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
-use Magento\Framework\Setup\Patch\PatchInterface;
 use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 
@@ -62,9 +63,8 @@ class CreateProductAttribute implements DataPatchInterface
                 'type' => 'int',
                 'label' => 'Product Vendor',
                 'input' => 'select',
-                'source' => 'Elogic\Vendor\Model\Attribute\Source\Vendor',
-                'frontend' => 'Elogic\Vendor\Model\Attribute\Frontend\Vendor',
-                'backend' => 'Elogic\Vendor\Model\Attribute\Backend\Vendor',
+                'source' => VendorSource::class,
+                'frontend' => VendorFrontend::class,
                 'required' => false,
                 'sort_order' => 50,
                 'global' => ScopedAttributeInterface::SCOPE_GLOBAL,

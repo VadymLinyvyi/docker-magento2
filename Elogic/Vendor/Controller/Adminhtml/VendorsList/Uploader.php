@@ -1,6 +1,7 @@
 <?php
 namespace Elogic\Vendor\Controller\Adminhtml\VendorsList;
 
+use Elogic\Vendor\Helper\ImageUrl;
 use Exception;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -13,7 +14,6 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\Io\File;
-use Magento\Framework\UrlInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
@@ -22,6 +22,11 @@ use Magento\Store\Model\StoreManagerInterface;
  */
 class Uploader extends Action
 {
+    /**
+     * @var ImageUrl
+     */
+    protected $imageUrl;
+
     /**
      * Image uploader
      * @var ImageUploader
@@ -45,6 +50,7 @@ class Uploader extends Action
 
     /**
      * Uploader constructor.
+     * @param ImageUrl $imageUrl
      * @param Context $context
      * @param ImageUploader $imageUploader
      * @param Filesystem $filesystem
@@ -52,6 +58,7 @@ class Uploader extends Action
      * @param StoreManagerInterface $storeManager
      */
     public function __construct(
+        ImageUrl $imageUrl,
         Context $context,
         ImageUploader $imageUploader,
         Filesystem $filesystem,
@@ -63,6 +70,7 @@ class Uploader extends Action
         $this->filesystem = $filesystem;
         $this->fileIo = $fileIo;
         $this->storeManager = $storeManager;
+        $this->imageUrl = $imageUrl;
     }
 
 
@@ -78,18 +86,15 @@ class Uploader extends Action
             $imageResult = $this->imageUploader->saveFileToTmpDir($imageUploadId);
             // Upload image folder wise
             $imageName = $imageResult['name'];
-            $firstName = substr($imageName, 0, 1);
-            $secondName = substr($imageName, 1, 1);
             $basePath = "{$this->filesystem->getDirectoryRead(DirectoryList::MEDIA)->getAbsolutePath()}logo/image/";
             $mediaRootDir = "{$this->filesystem->getDirectoryRead(DirectoryList::MEDIA)
-                    ->getAbsolutePath()}{$this->imageUploader->getBaseTmpPath()}/{$firstName}/{$secondName}/";
+                    ->getAbsolutePath()}{$this->imageUploader->getBaseTmpPath()}/";
             if (!is_dir($mediaRootDir)) {
                 $this->fileIo->mkdir($mediaRootDir, 0775);
             }
             // Set image name with new name, If image already exist
             $newImageName = $this->updateImageName($mediaRootDir, $imageName);
             $this->fileIo->mv($basePath . $imageName, $mediaRootDir . $newImageName);
-
             // Upload image folder wise
             $imageResult['cookie'] = [
                 'name' => $this->_getSession()->getName(),
@@ -98,10 +103,7 @@ class Uploader extends Action
                 'path' => $this->_getSession()->getCookiePath(),
                 'domain' => $this->_getSession()->getCookieDomain(),
             ];
-            $mediaUrl = $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA);
-            $imageResult['name'] = $newImageName;
-            $imageResult['file'] = $newImageName;
-            $imageResult['url'] = "{$mediaUrl}logo/image/{$firstName}/{$secondName}/{$newImageName}";
+            $imageResult = $this->imageUrl->getImageUrlByName($newImageName);
         } catch (Exception $e) {
             $imageResult = ['error' => $e->getMessage(), 'errorcode' => $e->getCode()];
         }
@@ -115,6 +117,7 @@ class Uploader extends Action
      */
     public function updateImageName($path, $file_name)
     {
+        $extension = '';
         if ($position = strrpos($file_name, '.')) {
             $name = substr($file_name, 0, $position);
             $extension = substr($file_name, $position);

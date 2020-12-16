@@ -1,8 +1,7 @@
 <?php
 namespace Elogic\Vendor\Model;
 
-use \Magento\Framework\Model\AbstractExtensibleModel;
-use Elogic\Vendor\Api\Data\VendorExtensionInterface;
+use Magento\Framework\Model\AbstractExtensibleModel;
 use Elogic\Vendor\Api\Data\VendorInterface;
 
 /**
@@ -48,7 +47,7 @@ class Vendor extends AbstractExtensibleModel implements VendorInterface
      */
     public function getEntityId()
     {
-        return $this->_getData(self::VENDOR_ID);
+        return $this->getData(self::VENDOR_ID);
     }
 
     /**
@@ -56,7 +55,7 @@ class Vendor extends AbstractExtensibleModel implements VendorInterface
      */
     public function getName()
     {
-        return $this->_getData(self::NAME);
+        return $this->getData(self::NAME);
     }
 
     /**
@@ -68,27 +67,27 @@ class Vendor extends AbstractExtensibleModel implements VendorInterface
     }
 
     /**
-     * @return mixed|string|null
+     * @return string|null
      */
     public function getDescription()
     {
-        return $this->_getData(self::DESCRIPTION);
+        return $this->getData(self::DESCRIPTION);
     }
 
     /**
-     * @param string $desc
+     * @param string $description
      */
-    public function setDescription($desc)
+    public function setDescription($description)
     {
-        $this->setData(self::DESCRIPTION, $desc);
+        $this->setData(self::DESCRIPTION, $description);
     }
 
     /**
-     * @return string|void
+     * @return string|null
      */
     public function getImageUrl()
     {
-        $this->_getData(self::IMAGE_URL);
+        $this->getData(self::IMAGE_URL);
     }
 
     /**

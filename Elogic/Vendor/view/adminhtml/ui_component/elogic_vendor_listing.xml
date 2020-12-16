@@ -46,14 +46,12 @@
         </argument>
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
-<!--        <filterSearch name="fulltext"/>-->
         <filters name="listing_filters" />
         <massaction name="listing_massaction">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="selectProvider" xsi:type="string">elogic_vendor_listing.elogic_vendor_listing.spinner_columns.ids</item>
                     <item name="indexField" xsi:type="string">entity_id</item>
-<!--                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>-->
                 </item>
             </argument>
             <action name="delete">
@@ -83,7 +81,7 @@
                 </item>
             </argument>
         </selectionsColumn>
-        <column name="entity_id">
+        <column name="entity_id" sortOrder="30">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">textRange</item>
@@ -92,12 +90,12 @@
                 </item>
             </argument>
         </column>
-        <column name="logo" class="Elogic\Vendor\Ui\Component\Listing\Column\Thumbnail">
+        <column name="logo" class="Elogic\Vendor\Ui\Component\Listing\Column\Thumbnail" sortOrder="40">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
                     <item name="sortable" xsi:type="boolean">false</item>
-                    <item name="altField" xsi:type="string">vendor_name</item>
+                    <item name="altField" xsi:type="string">name</item>
                     <item name="resizeEnabled" xsi:type="boolean">true</item>
                     <item name="resizeDefaultWidth" xsi:type="string">200</item>
                     <item name="has_preview" xsi:type="string">1</item>
@@ -105,7 +103,7 @@
                 </item>
             </argument>
         </column>
-        <column name="vendor_name">
+        <column name="name" sortOrder="50">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -119,7 +117,7 @@
                 </item>
             </argument>
         </column>
-        <column name="desc">
+        <column name="description" sortOrder="60">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -133,7 +131,7 @@
                 </item>
             </argument>
         </column>
-        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date" sortOrder="70">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>
@@ -143,7 +141,7 @@
                 </item>
             </argument>
         </column>
-        <column name="updated_at" class="Magento\Ui\Component\Listing\Columns\Date">
+        <column name="updated_at" class="Magento\Ui\Component\Listing\Columns\Date" sortOrder="80">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>
@@ -153,9 +151,8 @@
                 </item>
             </argument>
         </column>
-
         <!-- Action columns -->
-        <actionsColumn name="actions" class="Elogic\Vendor\Ui\Component\Listing\Column\VendorAction">
+        <actionsColumn name="actions" class="Elogic\Vendor\Ui\Component\Listing\Column\VendorAction" sortOrder="90">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="resizeEnabled" xsi:type="boolean">false</item>

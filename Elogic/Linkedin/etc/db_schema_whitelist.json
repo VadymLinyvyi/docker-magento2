@@ -2,7 +2,7 @@
     "elogic_linkedin_profile": {
         "column": {
             "customer_id": true,
-            "linkedin_url": true,
+            "url": true,
             "status": true,
             "created_at": true,
             "updated_at": true

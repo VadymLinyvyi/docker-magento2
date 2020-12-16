@@ -64,7 +64,6 @@ class VendorAction extends Column
                 ];
             }
         }
-
         return $dataSource;
     }
 }

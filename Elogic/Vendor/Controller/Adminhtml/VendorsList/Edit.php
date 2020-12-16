@@ -3,7 +3,9 @@ namespace Elogic\Vendor\Controller\Adminhtml\VendorsList;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
-use Magento\Backend\Model\View\Result\Redirect;
+use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\Controller\Result\Redirect as ResultRedirect;
+use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
@@ -39,6 +41,14 @@ class Edit extends Action
      */
     private $vendorRepository;
 
+    /**
+     * Edit constructor.
+     * @param Action\Context $context
+     * @param PageFactory $resultPageFactory
+     * @param Registry $registry
+     * @param VendorInterface $vendor
+     * @param VendorRepositoryInterface $vendorRepository
+     */
     public function __construct(
         Action\Context $context,
         PageFactory $resultPageFactory,
@@ -78,37 +88,27 @@ class Edit extends Action
     }
 
     /**
-     * Edit Vendor
-     *
-     * @return Page|Redirect
+     * @return Page|ResponseInterface|ResultRedirect|ResultInterface
      * @throws NoSuchEntityException
-     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function execute()
     {
         $id = $this->getRequest()->getParam('id');
         $vendor = $this->vendor;
-
         // If got an id, it's edition
         if ($id) {
             $vendor = $this->vendorRepository->getById($id);
             if (!$vendor->getEntityId()) {
                 $this->messageManager->addErrorMessage(__('This vendor not exists.'));
-                /** \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
-
                 return $resultRedirect->setPath('*/*/');
             }
         }
-
         $data = $this->_getSession()->getFormData(true);
         if (!empty($data)) {
             $vendor->setData($data);
         }
-
         $this->_coreRegistry->register('elogic_vendor_list', $vendor);
-
-        /** @var Page $resultPage */
         $resultPage = $this->_initAction();
         $resultPage->addBreadcrumb(
             $id ? __('Edit Vendor') : __('New Vendor'),

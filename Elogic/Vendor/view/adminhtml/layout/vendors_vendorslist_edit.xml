@@ -3,7 +3,6 @@
     <update handle="styles"/>
     <body>
         <referenceContainer name="content">
-<!--            <block class="Elogic\Vendor\Block\Adminhtml\Vendor\Edit" name="vendor_edit"/>-->
             <uiComponent name="elogic_vendor_edit"/>
         </referenceContainer>
     </body>

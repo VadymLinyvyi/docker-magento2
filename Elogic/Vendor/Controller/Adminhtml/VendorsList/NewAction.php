@@ -1,7 +1,6 @@
 <?php
 namespace Elogic\Vendor\Controller\Adminhtml\VendorsList;
 
-
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Forward;

@@ -3,9 +3,9 @@ namespace Elogic\Vendor\Model;
 
 use Elogic\Vendor\Model\ResourceModel\Vendor\CollectionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\UrlInterface;
 use Magento\Ui\DataProvider\AbstractDataProvider;
 use Magento\Store\Model\StoreManagerInterface;
+use Elogic\Vendor\Helper\ImageUrl;
 
 /**
  * Class DataProvider
@@ -14,7 +14,12 @@ use Magento\Store\Model\StoreManagerInterface;
 class DataProvider extends AbstractDataProvider
 {
     /**
-    @var array
+     * @var ImageUrl
+     */
+    protected $imageUrl;
+
+    /**
+     * @var array
      */
     protected $loadedData;
 
@@ -24,15 +29,18 @@ class DataProvider extends AbstractDataProvider
     protected $store;
 
     /**
-     * @param string $name
-     * @param string $primaryFieldName
-     * @param string $requestFieldName
+     * DataProvider constructor.
+     * @param ImageUrl $imageUrl
+     * @param $name
+     * @param $primaryFieldName
+     * @param $requestFieldName
      * @param CollectionFactory $vendorCollectionFactory
      * @param StoreManagerInterface $store
      * @param array $meta
      * @param array $data
      */
     public function __construct(
+        ImageUrl $imageUrl,
         $name,
         $primaryFieldName,
         $requestFieldName,
@@ -44,6 +52,7 @@ class DataProvider extends AbstractDataProvider
         $this->collection = $vendorCollectionFactory->create();
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
         $this->store = $store;
+        $this->imageUrl = $imageUrl;
     }
 
     /**
@@ -63,15 +72,8 @@ class DataProvider extends AbstractDataProvider
             $itemData = $vendor->getData();
             if (isset($itemData['logo'])) {
                 $imageName = $itemData['logo'];
-                $firstName = substr($imageName, 0, 1);
-                $secondName = substr($imageName, 1, 1);
                 unset($itemData['logo']);
-                $itemData['logo'][0] = [
-                    'name' => $imageName,
-                    'file' => $imageName,
-                    'url' => "{$this->store->getStore()
-                    ->getBaseUrl(UrlInterface::URL_TYPE_MEDIA)}logo/image/{$firstName}/{$secondName}/{$imageName}"
-                ];
+                $itemData['logo'][0] = $this->imageUrl->getImageUrlByName($imageName);
             } else {
                 $itemData['logo'] = null;
             }

@@ -50,7 +50,7 @@ class Vendor extends Template
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
     public function getLogo()
     {
@@ -63,13 +63,19 @@ class Vendor extends Template
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
     public function getAttrLabel()
     {
-        return $this->getProduct()->getResource()->getAttribute('product_vendor')->getStoreLabel();
+        return $this->getProduct()
+            ->getResource()
+            ->getAttribute('product_vendor')
+            ->getStoreLabel();
     }
 
+    /**
+     * @return string|null
+     */
     public function getName()
     {
         return $this
@@ -80,6 +86,9 @@ class Vendor extends Template
             ->getName($this->getProduct());
     }
 
+    /**
+     * @return string|null
+     */
     public function getDescription()
     {
         return $this

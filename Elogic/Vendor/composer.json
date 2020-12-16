@@ -1,0 +1,21 @@
+{
+    "name": "elogic/vendor",
+    "description": "N/A",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0"
+    ],
+    "require": {
+        "php": "~7.3.0||~7.4.0",
+        "magento/module-catalog": "~104.0.*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Elogic\\Vendor\\": ""
+        }
+    }
+}
+

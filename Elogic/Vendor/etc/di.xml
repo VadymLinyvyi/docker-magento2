@@ -39,6 +39,10 @@
         </arguments>
     </type>
 
+    <type name="\Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="attributeCatalogView" type="\Elogic\Vendor\Plugin\CatalogViewProductAttributeUpdater" sortOrder="1" disabled="false" />
+    </type>
+
     <preference for="Elogic\Vendor\Api\VendorRepositoryInterface" type="Elogic\Vendor\Model\VendorRepository"/>
     <preference for="Elogic\Vendor\Api\Data\VendorInterface" type="Elogic\Vendor\Model\Vendor"/>
     <preference for="Elogic\Vendor\Api\Data\VendorSearchResultInterface" type="Elogic\Vendor\Model\VendorSearchResult"/>

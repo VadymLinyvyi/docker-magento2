@@ -18,7 +18,6 @@ use Elogic\Vendor\Model\ResourceModel\Vendor\Collection;
  */
 class VendorRepository implements VendorRepositoryInterface
 {
-
     /**
      * @var VendorFactory
      */
@@ -52,7 +51,7 @@ class VendorRepository implements VendorRepositoryInterface
 
     /**
      * @param int $id
-     * @return VendorInterface
+     * @return VendorInterface|Vendor
      * @throws NoSuchEntityException
      */
     public function getById($id)
@@ -90,14 +89,11 @@ class VendorRepository implements VendorRepositoryInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
-        $collection = $this->collectionFactory->create();
-
+        $collection = $this->vendorCollectionFactory->create();
         $this->addFiltersToCollection($searchCriteria, $collection);
         $this->addSortOrdersToCollection($searchCriteria, $collection);
         $this->addPagingToCollection($searchCriteria, $collection);
-
         $collection->load();
-
         return $this->buildSearchResult($searchCriteria, $collection);
     }
 
@@ -139,6 +135,11 @@ class VendorRepository implements VendorRepositoryInterface
         $collection->setCurPage($searchCriteria->getCurrentPage());
     }
 
+    /**
+     * @param SearchCriteriaInterface $searchCriteria
+     * @param Collection $collection
+     * @return VendorSearchResultInterface
+     */
     private function buildSearchResult(SearchCriteriaInterface $searchCriteria, Collection $collection)
     {
         $searchResults = $this->searchResultFactory->create();

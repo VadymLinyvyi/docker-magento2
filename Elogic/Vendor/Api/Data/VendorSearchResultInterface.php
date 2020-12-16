@@ -10,12 +10,12 @@ use Magento\Framework\Api\SearchResultsInterface;
 interface VendorSearchResultInterface extends SearchResultsInterface
 {
     /**
-     * @return \Elogic\Vendor\Api\Data\VendorInterface[]
+     * @return VendorInterface[]
      */
     public function getItems();
 
     /**
-     * @param \Elogic\Vendor\Api\Data\VendorInterface[] $items
+     * @param VendorInterface[] $items
      * @return void
      */
     public function setItems(array $items);
