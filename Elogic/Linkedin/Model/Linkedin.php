@@ -10,7 +10,7 @@ use \Magento\Framework\Model\AbstractExtensibleModel;
 class Linkedin extends AbstractExtensibleModel
 {
     const CUSTOMER_ID = 'customer_id';
-    const URL = 'linkedin_url';
+    const URL = 'url';
     const STATUS = 'status';
 
     /**

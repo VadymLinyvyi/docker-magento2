@@ -1,0 +1,7 @@
+<?php /** @var Magento\Framework\View\Element\Template $block */ ?>
+<?php $data = $block->getData(); ?>
+<div class="vendor-info-catalog-view">
+    <span class="vendor-info label"><?=$data['attrLabel']?></span>
+    <span class="vendor-info name"><?=$data['vendorName']?></span>
+    <span class="vendor-info desc"><?=$data['vendorDescription']?></span>
+</div>

@@ -33,7 +33,7 @@ class ImageUrl
      */
     public function getImageUrlByName($imageName)
     {
-        return $data = [
+        return [
             'name' => $imageName,
             'file' => $imageName,
             'url' => "{$this->store->getStore()

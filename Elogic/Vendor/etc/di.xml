@@ -33,6 +33,7 @@
             </argument>
         </arguments>
     </virtualType>
+
     <type name="\Elogic\Vendor\Controller\Adminhtml\VendorsList\Uploader">
         <arguments>
             <argument name="imageUploader" xsi:type="object">VirtualUploader</argument>
@@ -40,7 +41,7 @@
     </type>
 
     <type name="\Magento\Catalog\Block\Product\ListProduct">
-        <plugin name="attributeCatalogView" type="\Elogic\Vendor\Plugin\CatalogViewProductAttributeUpdater" sortOrder="1" disabled="false" />
+        <plugin name="attributeCatalogView" type="\Elogic\Vendor\Plugin\CatalogViewProductAttributeUpdaterPlugin" sortOrder="1" disabled="false" />
     </type>
 
     <preference for="Elogic\Vendor\Api\VendorRepositoryInterface" type="Elogic\Vendor\Model\VendorRepository"/>

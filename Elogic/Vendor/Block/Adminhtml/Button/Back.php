@@ -1,15 +1,30 @@
 <?php
-
 namespace Elogic\Vendor\Block\Adminhtml\Button;
 
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
+use Magento\Backend\Block\Widget\Context;
 
 /**
  * Class Back
  * @package Elogic\Vendor\Block\Adminhtml\Button
  */
-class Back extends Generic implements ButtonProviderInterface
+class Back implements ButtonProviderInterface
 {
+    /**
+     * @var Context
+     */
+    protected $context;
+
+    /**
+     * Generic constructor.
+     * @param Context $context
+     */
+    public function __construct(
+        Context $context
+    ) {
+        $this->context = $context;
+    }
+
     /**
      * get button data
      *
@@ -32,6 +47,6 @@ class Back extends Generic implements ButtonProviderInterface
      */
     public function getBackUrl()
     {
-        return $this->getUrl('*/*/');
+        return $this->context->getUrlBuilder()->getUrl('*/*/');
     }
 }

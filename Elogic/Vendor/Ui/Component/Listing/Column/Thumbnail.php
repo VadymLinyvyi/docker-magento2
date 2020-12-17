@@ -16,6 +16,8 @@ use Magento\Ui\Component\Listing\Columns\Column;
  */
 class Thumbnail extends Column
 {
+    const ALT_FIELD = 'Logotype';
+
     /**
      * @var ImageUrl
      */

@@ -7,7 +7,7 @@ use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
  * Class Save
  * @package Elogic\Vendor\Block\Adminhtml\Button
  */
-class Save extends Generic implements ButtonProviderInterface
+class Save implements ButtonProviderInterface
 {
     /**
      * get button data
