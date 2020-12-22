@@ -1,15 +1,24 @@
 <?xml version="1.0"?>
 
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\Framework\App\RouterList">
         <arguments>
             <argument name="routerList" xsi:type="array">
                 <item name="cms" xsi:type="array">
-                    <item name="class" xsi:type="string">\Elogic\Blog\Controller\Router</item>
+                    <item name="class" xsi:type="string">Elogic\Blog\Controller\Router</item>
                     <item name="disable" xsi:type="boolean">false</item>
                     <item name="sortOrder" xsi:type="string">35</item>
                 </item>
             </argument>
+        </arguments>
+    </type>
+    <type name="Elogic\Blog\Controller\Index\Index">
+        <plugin name="Elogic\Blog\Plugin\IndexPlugin" type="Elogic\Blog\Plugin\IndexPlugin"/>
+    </type>
+    <type name="Elogic\Blog\Observer\IndexObserver">
+        <arguments>
+            <argument name="some_flag" xsi:type="object">Elogic\Blog\Controller\Index\Index</argument>
         </arguments>
     </type>
 </config>

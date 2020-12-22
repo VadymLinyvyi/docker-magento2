@@ -16,7 +16,7 @@
         <column xsi:type="varchar" name="url" nullable="false" length="255" comment="Article URL"/>
         <column xsi:type="smallint" name="status" unsigned="true" nullable="false" default="0" comment="Article status"/>
         <column xsi:type="boolean" name="enabled" unsigned="true" nullable="false"
-                identity="false" default="0" comment="IS_enabled"/>
+                identity="false" default="0" comment="Is_enabled"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Creation Time"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"

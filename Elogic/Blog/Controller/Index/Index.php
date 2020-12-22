@@ -25,8 +25,18 @@ class Index extends Action
         parent::__construct($context);
     }
 
+    public function tempForPlugin($a = 2, $b = 3, $c = 10)
+    {
+        $a++;
+        $b--;
+        $c*=$a+$b;
+        $this->_eventManager->dispatch('some_flag', [$a, $b, $c]);
+        return $c;
+    }
+
     public function execute()
     {
+        $temp = $this->tempForPlugin(10,25,88);
         return $this->resultPageFactory->create();
     }
 }
