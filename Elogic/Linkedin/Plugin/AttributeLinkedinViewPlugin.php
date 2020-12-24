@@ -3,6 +3,7 @@
 namespace Elogic\Linkedin\Plugin;
 
 use Magento\Config\Model\Config;
+use Magento\Customer\Model\Customer;
 use Magento\Customer\Setup\CustomerSetupFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 
@@ -64,30 +65,33 @@ class AttributeLinkedinViewPlugin
         switch ($this->attributeStatus) {
             case 0:
                 $customerSetup->updateAttribute(
-                    'customer_address',
+                    Customer::ENTITY,
                     $attributeCode,
                     [
                         'is_visible' => false,
+                        'visible_on_front' =>false,
                         'is_required' => false
                     ]
                 );
                 break;
             case 1:
                 $customerSetup->updateAttribute(
-                    'customer_address',
+                    Customer::ENTITY,
                     $attributeCode,
                     [
                         'is_visible' => true,
+                        'visible_on_front' =>true,
                         'is_required' => false
                     ]
                 );
                 break;
             case 2:
                 $customerSetup->updateAttribute(
-                    'customer_address',
+                    Customer::ENTITY,
                     $attributeCode,
                     [
                         'is_visible' => true,
+                        'visible_on_front' =>true,
                         'is_required' => true
                     ]
                 );

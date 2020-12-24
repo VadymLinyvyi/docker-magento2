@@ -1,0 +1,16 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="form.additional.info">
+            <block class="Magento\Framework\View\Element\Template" name="linkedin_profile"
+                   template="Elogic_Linkedin::linkedin_profile_field.phtml" ifconfig="customer/address/linkedin">
+                <arguments>
+                    <argument name="attribute_status" xsi:type="helper"
+                              helper="Elogic\Linkedin\Model\Attribute\Helper\AttributeStatus::getLinkedinAttributeStatus"/>
+                    <argument name="linkedin_attribute_data" xsi:type="helper"
+                              helper="Elogic\Linkedin\Block\DataProviders\LinkedinAttributeData::getLinkedinAttributeData"/>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -3,10 +3,14 @@
 namespace Elogic\Linkedin\Setup\Patch\Data;
 
 use Elogic\Linkedin\Model\Attribute\Backend\Linkedin as LinkedinBackend;
-use Magento\Customer\Setup\CustomerSetupFactory;
-use Magento\Framework\DB\Ddl\Table;
+use Exception;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Eav\Setup\EavSetupFactory;
+use Magento\Eav\Model\Config;
+use Magento\Customer\Model\Customer;
+use Magento\Framework\DB\Ddl\Table;
 
 /**
  * Class CreateProductAttribute
@@ -15,9 +19,9 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 class CreateLinkedInAttribute implements DataPatchInterface
 {
     /**
-     * @var CustomerSetupFactory
+     * @var EavSetupFactory
      */
-    protected $customerSetupFactory;
+    protected $eavSetupFactory;
 
     /**
      * @var ModuleDataSetupInterface
@@ -25,16 +29,24 @@ class CreateLinkedInAttribute implements DataPatchInterface
     protected $moduleDataSetup;
 
     /**
+     * @var Config
+     */
+    private $eavConfig;
+
+    /**
      * CreateLinkedInAttribute constructor.
-     * @param CustomerSetupFactory $customerSetupFactory
+     * @param EavSetupFactory $eavSetupFactory
      * @param ModuleDataSetupInterface $moduleDataSetup
+     * @param Config $eavConfig
      */
     public function __construct(
-        CustomerSetupFactory $customerSetupFactory,
-        ModuleDataSetupInterface $moduleDataSetup
+        EavSetupFactory $eavSetupFactory,
+        ModuleDataSetupInterface $moduleDataSetup,
+        Config $eavConfig
     ) {
         $this->moduleDataSetup = $moduleDataSetup;
-        $this->customerSetupFactory = $customerSetupFactory;
+        $this->eavSetupFactory = $eavSetupFactory;
+        $this->eavConfig = $eavConfig;
     }
 
     /**
@@ -55,13 +67,14 @@ class CreateLinkedInAttribute implements DataPatchInterface
 
     /**
      * @inheritDoc
+     * @throws LocalizedException
+     * @throws Exception
      */
     public function apply()
     {
-        $customerSetup = $this->customerSetupFactory->create(['setup' => $this->moduleDataSetup]);
-//        $customerSetup->removeAttribute('customer_address', 'linkedin_profile');
+        $customerSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
         $customerSetup->addAttribute(
-            'customer_address',
+            Customer::ENTITY,
             'linkedin_profile',
             [
                 'label' => 'Linked In',
@@ -82,18 +95,17 @@ class CreateLinkedInAttribute implements DataPatchInterface
                 'frontend_class' => 'validate-url validate-length maximum-length-250'
             ]
         );
-        $attribute = $customerSetup->getEavConfig()
-            ->getAttribute('customer_address', 'linkedin_profile')
+        $attribute = $this->eavConfig
+            ->getAttribute(Customer::ENTITY, 'linkedin_profile')
             ->addData(
                 ['used_in_forms' =>
                     [
-                        'adminhtml_customer_address',
                         'adminhtml_customer',
                         'adminhtml_checkout',
-                        'customer_address_edit',
                         'customer_register_address',
                         'customer_address',
                         'customer_account_create',
+                        'customer_account_edit',
                         'checkout_register'
                     ]
                 ]

@@ -37,6 +37,11 @@ class Linkedin extends AbstractBackend
     public function validate($object)
     {
         $value = $object->getData($this->getAttribute()->getAttributeCode());
+        $identifier = trim($value, '/');
+        $parts = explode('/', $identifier);
+        if ($parts[0] != 'http:' || $parts[0] != 'https:') {
+            $value = 'http://' . $value;
+        }
         if (($this->attributeStatus->getLinkedinAttributeStatus() == self::IS_REQUIRED) && (!$value)) {
             throw new LocalizedException(
                 __('Linkedin url can not be empty')

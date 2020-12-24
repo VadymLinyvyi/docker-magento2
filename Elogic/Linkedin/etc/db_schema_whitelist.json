@@ -1,0 +1,12 @@
+{
+    "quote": {
+        "column": {
+            "linkedin_profile": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "linkedin_profile": true
+        }
+    }
+}

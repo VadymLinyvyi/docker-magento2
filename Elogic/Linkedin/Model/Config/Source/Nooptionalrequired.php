@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Elogic\Linkedin\Model\Config\Source;
 
 /**
