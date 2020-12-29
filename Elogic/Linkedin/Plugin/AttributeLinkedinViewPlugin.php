@@ -2,6 +2,7 @@
 
 namespace Elogic\Linkedin\Plugin;
 
+use Elogic\Linkedin\Model\Config\Source\NoOptionalRequired;
 use Magento\Config\Model\Config;
 use Magento\Customer\Model\Customer;
 use Magento\Customer\Setup\CustomerSetupFactory;
@@ -63,7 +64,7 @@ class AttributeLinkedinViewPlugin
         $customerSetup = $this->customerSetupFactory->create(['setup' => $setup]);
         $attributeCode = 'linkedin_profile';
         switch ($this->attributeStatus) {
-            case 0:
+            case NoOptionalRequired::IS_INVISIBLE:
                 $customerSetup->updateAttribute(
                     Customer::ENTITY,
                     $attributeCode,
@@ -74,7 +75,7 @@ class AttributeLinkedinViewPlugin
                     ]
                 );
                 break;
-            case 1:
+            case NoOptionalRequired::IS_OPTIONAL:
                 $customerSetup->updateAttribute(
                     Customer::ENTITY,
                     $attributeCode,
@@ -85,7 +86,7 @@ class AttributeLinkedinViewPlugin
                     ]
                 );
                 break;
-            case 2:
+            case NoOptionalRequired::IS_REQUIRED:
                 $customerSetup->updateAttribute(
                     Customer::ENTITY,
                     $attributeCode,

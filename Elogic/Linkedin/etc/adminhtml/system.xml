@@ -8,7 +8,7 @@
             <group id="address">
                 <field id="linkedin" translate="label" type="select" sortOrder="90" showInDefault="1" canRestore="1">
                     <label>Show Linkedin Url</label>
-                    <source_model>Elogic\Linkedin\Model\Config\Source\Nooptionalrequired</source_model>
+                    <source_model>Elogic\Linkedin\Model\Config\Source\NoOptionalRequired</source_model>
                 </field>
             </group>
         </section>

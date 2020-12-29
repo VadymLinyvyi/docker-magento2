@@ -22,19 +22,19 @@ class LinkedinAttributeData implements ArgumentInterface
     /**
      * @var CustomerRepositoryInterface
      */
-    private $customerRepositoryInterface;
+    private $customerRepository;
 
     /**
      * LinkedinAttributeData constructor.
      * @param Session $customerSession
-     * @param CustomerRepositoryInterface $customerRepositoryInterface
+     * @param CustomerRepositoryInterface $customerRepository
      */
     public function __construct(
         Session $customerSession,
-        CustomerRepositoryInterface $customerRepositoryInterface
+        CustomerRepositoryInterface $customerRepository
     ) {
         $this->customerSession = $customerSession;
-        $this->customerRepositoryInterface = $customerRepositoryInterface;
+        $this->customerRepository = $customerRepository;
     }
 
     /**
@@ -47,7 +47,7 @@ class LinkedinAttributeData implements ArgumentInterface
         $result = '';
         $customerId = $this->customerSession->getId();
         if ($customerId) {
-            $customer = $this->customerRepositoryInterface->getById($customerId);
+            $customer = $this->customerRepository->getById($customerId);
             $result = $customer->getCustomAttribute('linkedin_profile')->getValue();
         }
         return $result;

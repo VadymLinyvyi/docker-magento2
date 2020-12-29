@@ -2,6 +2,7 @@
 
 namespace Elogic\Linkedin\Plugin;
 
+use Elogic\Linkedin\Model\Config\Source\NoOptionalRequired;
 use Magento\Checkout\Block\Checkout\LayoutProcessor;
 use Elogic\Linkedin\Model\Attribute\Helper\AttributeStatus;
 use Elogic\Linkedin\Block\DataProviders\LinkedinAttributeData;
@@ -14,8 +15,6 @@ use Magento\Framework\Exception\NoSuchEntityException;
  */
 class AddCheckoutFieldPlugin
 {
-    const REQUIRED = 2;
-
     /**
      * @var AttributeStatus
      */
@@ -53,7 +52,7 @@ class AddCheckoutFieldPlugin
         $validations = ['validate-url' => true, 'maxlength' => 250];
         $attributeStatus = $this->attributeStatus->getLinkedinAttributeStatus();
         if ($attributeStatus) {
-            if ($attributeStatus == self::REQUIRED) {
+            if ($attributeStatus == NoOptionalRequired::IS_REQUIRED) {
                 $validations ['required-entry'] = true;
             }
             $customField = [

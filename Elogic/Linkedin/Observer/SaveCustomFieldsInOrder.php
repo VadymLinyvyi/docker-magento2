@@ -11,7 +11,6 @@ use Magento\Framework\Event\ObserverInterface;
  */
 class SaveCustomFieldsInOrder implements ObserverInterface
 {
-
     /**
      * @inheritDoc
      */

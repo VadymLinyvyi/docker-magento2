@@ -21,12 +21,12 @@ class LinkedinAttributeData extends Template
     /**
      * @var OrderRepositoryInterface
      */
-    private $orderRepositoryInterface;
+    private $orderRepository;
 
     /**
      * LinkedinAttributeData constructor.
      * @param RequestInterface $requestInterface
-     * @param OrderRepositoryInterface $orderRepositoryInterface
+     * @param OrderRepositoryInterface $orderRepository
      * @param Template\Context $context
      * @param array $data
      * @param JsonHelper|null $jsonHelper
@@ -34,7 +34,7 @@ class LinkedinAttributeData extends Template
      */
     public function __construct(
         RequestInterface $requestInterface,
-        OrderRepositoryInterface $orderRepositoryInterface,
+        OrderRepositoryInterface $orderRepository,
         Template\Context $context,
         array $data = [],
         ?JsonHelper $jsonHelper = null,
@@ -42,17 +42,17 @@ class LinkedinAttributeData extends Template
     ) {
         parent::__construct($context, $data, $jsonHelper, $directoryHelper);
         $this->requestInterface = $requestInterface;
-        $this->orderRepositoryInterface = $orderRepositoryInterface;
+        $this->orderRepository = $orderRepository;
     }
 
 
     /**
-     * @return string
+     * @return float|mixed|string
      */
     public function getLinkedinAttributeData()
     {
         $orderId = $this->requestInterface->getParam('order_id');
-        $order = $this->orderRepositoryInterface->get($orderId);
-        return $order->getData('linkedin_profile')? : '';
+        $order = $this->orderRepository->get($orderId);
+        return $order->getLinkedinProfile()? : '';
     }
 }
