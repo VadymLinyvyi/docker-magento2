@@ -1,8 +1,11 @@
-<?php /** @var Magento\Framework\View\Element\Template $block */ ?>
-<?php const REQUIRED = 2; ?>
+<?php /** @var Magento\Framework\View\Element\Template $block */
+
+use Elogic\Linkedin\Model\Config\Source\NoOptionalRequired;
+
+?>
 <?php $attributeStatus = $block->getData('attribute_status') ?>
 <fieldset class="fieldset create account"
-    <?php if ($attributeStatus == REQUIRED) : ?>
+    <?php if ($attributeStatus == NoOptionalRequired::IS_REQUIRED) : ?>
         data-hasrequired="<?php /* @escapeNotVerified */
         echo __('* Required Fields') ?>"
     <?php endif; ?> >
@@ -11,14 +14,15 @@
             echo __('Additional Information') ?></span>
     </legend>
     <br>
-    <div class="field linkedin_profile<?php if ($attributeStatus == REQUIRED) : ?> required<?php endif; ?>">
+    <div
+        class="field linkedin_profile<?php if ($attributeStatus == NoOptionalRequired::IS_REQUIRED) : ?> required<?php endif; ?>">
         <label class="label" for="email">
             <span><?= $block->escapeHtml(__('Linkedin Profile')) ?></span>
         </label>
         <div class="control">
             <input type="text" name="linkedin_profile" id="linkedin_profile" title="<?php /* @escapeNotVerified */
             echo __('Linkedin Profile') ?>" class="input-text"
-                   data-validate="{<?php if ($attributeStatus == REQUIRED) : ?>required:true, <?php endif; ?>'validate-url':true, 'maxlength':250}"
+                   data-validate="{<?php if ($attributeStatus == NoOptionalRequired::IS_REQUIRED) : ?>required:true, <?php endif; ?>'validate-url':true, 'maxlength':250}"
                    autocomplete="off"
                    value="<?= $block->getData('linkedin_attribute_data') ?>">
         </div>
