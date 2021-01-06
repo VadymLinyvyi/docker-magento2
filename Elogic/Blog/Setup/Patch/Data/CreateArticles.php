@@ -3,7 +3,6 @@
 namespace Elogic\Blog\Setup\Patch\Data;
 
 use Elogic\Blog\Model\BlogFactory;
-use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 
 /**
@@ -12,25 +11,19 @@ use Magento\Framework\Setup\Patch\DataPatchInterface;
  */
 class CreateArticles implements DataPatchInterface
 {
-
-    /**
-     * @var ModuleDataSetupInterface
-     */
-    private $moduleDataSetup;
     /**
      * @var BlogFactory
      */
     private $articleFactory;
 
+    /**
+     * CreateArticles constructor.
+     * @param BlogFactory $blogFactory
+     */
     public function __construct(BlogFactory $blogFactory)
     {
         $this->articleFactory = $blogFactory;
     }
-
-    /**
-     * PatchInitial constructor.
-     * @param ModuleDataSetupInterface $moduleDataSetup
-     */
 
     /**
      * {@inheritdoc}

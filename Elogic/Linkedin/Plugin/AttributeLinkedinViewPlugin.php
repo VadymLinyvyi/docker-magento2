@@ -50,8 +50,10 @@ class AttributeLinkedinViewPlugin
     public function afterSave(Config $config, $result)
     {
         $data = $result->getData('groups');
-        $this->attributeStatus = array_shift($data['address']['fields']['linkedin']);
-        $this->upgrade();
+        if (isset($data['address']['fields']['linkedin'])) {
+            $this->attributeStatus = array_shift($data['address']['fields']['linkedin']);
+            $this->upgrade();
+        }
         return $result;
     }
 
@@ -70,7 +72,7 @@ class AttributeLinkedinViewPlugin
                     $attributeCode,
                     [
                         'is_visible' => false,
-                        'visible_on_front' =>false,
+                        'visible_on_front' => false,
                         'is_required' => false
                     ]
                 );
@@ -81,7 +83,7 @@ class AttributeLinkedinViewPlugin
                     $attributeCode,
                     [
                         'is_visible' => true,
-                        'visible_on_front' =>true,
+                        'visible_on_front' => true,
                         'is_required' => false
                     ]
                 );
@@ -92,7 +94,7 @@ class AttributeLinkedinViewPlugin
                     $attributeCode,
                     [
                         'is_visible' => true,
-                        'visible_on_front' =>true,
+                        'visible_on_front' => true,
                         'is_required' => true
                     ]
                 );

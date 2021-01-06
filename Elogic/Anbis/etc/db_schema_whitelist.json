@@ -1,0 +1,14 @@
+{
+    "quote_item": {
+        "column": {
+            "name1": true,
+            "name2": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "name1": true,
+            "name2": true
+        }
+    }
+}

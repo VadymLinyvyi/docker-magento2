@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Variable\Model\Source\Variables">
+        <arguments>
+            <argument name="configPaths" xsi:type="array">
+                <item name="web/my_group" xsi:type="array">
+                    <item name="web/my_group/dummy_cms_block" xsi:type="string">anbis_dummy_cms_block</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="anbisToOrderItem" type="Elogic\Anbis\Plugin\AnbisToOrderItemPlugin" sortOrder="1" disabled="false" />
+    </type>
+</config>

@@ -1,0 +1,18 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+<system>
+    <section id="web">
+        <label>Web</label>
+        <tab>general</tab>
+        <resource>Elogic_Blog::web</resource>
+        <group id="my_group" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>My Group</label>
+            <field id="dummy_block" translate="label" sortOrder="90" showInDefault="1">
+                <label>Dummy Block Default Value</label>
+            </field>
+            <field id="dummy_cms_block" translate="label" sortOrder="90" showInDefault="1">
+                <label>Dummy CMS Block Default Value</label>
+            </field>
+        </group>
+    </section>
+</system>
+</config>

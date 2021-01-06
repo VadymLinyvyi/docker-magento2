@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.form.content">
+            <block class="Magento\Cms\Block\Block" name="some-cms-block" before="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">some-dummy-cms-block</argument>
+                </arguments>
+            </block>
+            <block class="Elogic\Anbis\Block\SomeDummyBlock" name="some-block"
+                   template="Elogic_Anbis::dummy_block.phtml" after="some-cms-block"/>
+        </referenceContainer>
+        <referenceBlock name="product.info.options.wrapper.bottom">
+            <block class="Magento\Cms\Block\Block" name="some-cms-block-test" before="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">some-dummy-cms-block</argument>
+                </arguments>
+            </block>
+            <block class="Elogic\Anbis\Block\SomeDummyBlock" name="some-block-test"
+                   template="Elogic_Anbis::dummy_block.phtml" after="some-cms-block-test"/>
+        </referenceBlock>
+    </body>
+</page>
